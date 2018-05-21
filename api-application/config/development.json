@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "devURL": "http://localhost:3000",
+    "env": "development",
+    "dbURL": "mongodb://alessandro:Ale8193@ds157528.mlab.com:57528/local_library",
+    "sessionSecret": "qwertyuiop123456789",
+    "sessionName": "xpressLocalLibrary.sess"
+}
