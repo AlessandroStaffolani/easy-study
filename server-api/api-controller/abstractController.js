@@ -10,12 +10,22 @@ exports.retrun_request = (req, res, next, body) => {
     res.json(body);
 };
 
-exports.return_bad_request = (req, res, next, message = '', payload = {}) => {
+exports.reformat_errors = (errorsObject) => {
+
+    console.log(errorsObject);
+
+    for (let param in errorsObject) {
+       delete errorsObject[param].location
+    }
+
+    console.log(errorsObject);
+
+    return errorsObject
+};
+
+exports.return_bad_request = (req, res, next, payload = {}) => {
 
     let errorMessage = 'Bad request, error 400';
-    if (message !== '') {
-        errorMessage += ' | ' + message
-    }
     res.header('Content-Type', 'application/json');
     res.status(400);
     res.json({

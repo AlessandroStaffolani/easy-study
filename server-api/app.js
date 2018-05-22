@@ -50,10 +50,10 @@ mongoose.connect(config.dbURL);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('connected', function () {
+db.once('connected', () => {
     return console.log('Successfully connected to ' + config.dbURL);
 });
-db.once('disconnected', function () {
+db.once('disconnected', () => {
     return console.error('Successfully disconnected from ' + config.dbURL);
 });
 
@@ -64,7 +64,7 @@ db.once('disconnected', function () {
  */
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -116,8 +116,8 @@ const subject = require('./api/subject');
 const apiVersion = config.apiVersion;
 
 app.use('/', index);
-app.use('/V' + apiVersion + '/users', user);
-app.use('/V' + apiVersion + '/subjects', subject);
+app.use('/api/V' + apiVersion + '/users', user);
+app.use('/api/V' + apiVersion + '/subjects', subject);
 
 //==============================================================================
 
@@ -127,14 +127,14 @@ app.use('/V' + apiVersion + '/subjects', subject);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

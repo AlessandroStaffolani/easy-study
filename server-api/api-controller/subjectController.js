@@ -17,7 +17,7 @@ exports.post_subjects = [
         // controllo i dati trasmessi
         if (!Array.isArray(request_subjects)) {
             // object is not array, errore
-            abstractController.return_bad_request(req, res, next, 'Malformed data, please read documentation', request_subjects)
+            abstractController.return_bad_request(req, res, next, request_subjects)
         }
         /*TODO Testare se la funzione si blocca quando ci sono gli errori o no */
 
