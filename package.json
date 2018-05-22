@@ -6,8 +6,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "startServer": "node ./api-application/bin/server.js",
-    "devstartServer": "nodemon ./api-application/bin/server.js"
+    "client": "cd client && yarn start",
+    "server": "node ./server-api/bin/www",
+    "devserver": "nodemon ./server-api/bin/www",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
     "async": "^2.6.0",
@@ -30,6 +32,7 @@
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "nodemon": "^1.17.3"
   }
 }
