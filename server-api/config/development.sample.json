@@ -4,5 +4,6 @@
   "env": "development",
   "dbURL": "<mongodb_url>",
   "sessionSecret": "<password>",
-  "sessionName": "<session-name>"
+  "sessionName": "<session-name>",
+  "apiVersion": 1
 }

@@ -12,7 +12,7 @@ let SubjectSchema = new Schema({
 
 SubjectSchema
     .virtual('date_exam_formatted')
-    .get(function () {
+    .get(() => {
         return this.date_exam ? moment(this.date_exam).format('DD-MM-YYYY') : '';
     });
 

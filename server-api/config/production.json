@@ -4,5 +4,6 @@
   "env": "development",
   "dbURL": "mongodb://alessandro:Ale8193@ds129780.mlab.com:29780/easy-study",
   "sessionSecret": "qwertyuiop123456789",
-  "sessionName": "easyStudySession.sess"
+  "sessionName": "easyStudySession.sess",
+  "apiVersion": 1
 }
