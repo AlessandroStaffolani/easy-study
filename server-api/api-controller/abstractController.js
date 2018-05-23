@@ -58,14 +58,16 @@ exports.reformat_errors = (errorsObject) => {
  * @param message
  * @returns {{}}
  */
-exports.create_error_object = (param, value, message) => {
+exports.create_error_object = (param, message, value = '') => {
 
     let error = {};
     error[param] = {
         'param': param,
-        'value': value,
         'message': message
     };
+    if (value !== '') {
+        error[param].value = value;
+    }
     return error
 };
 

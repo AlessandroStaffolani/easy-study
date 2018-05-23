@@ -6,13 +6,11 @@ const router = express.Router();
 /**
  * Body should be an array of subject objects
  * {
- *      subject: [
- *          {
+ *      subject: {
  *              name: String,
  *              date_exam: Date,
  *              user: User.ObjectId || String
  *          }
- *      ]
  * }
  */
 router.post('/', subjectController.post_subjects);

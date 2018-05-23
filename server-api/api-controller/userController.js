@@ -164,8 +164,8 @@ exports.reset_user_password = [
                                     let errorPayload = {
                                         errors: abstractController.create_error_object(
                                             'user.oldPassword',
+                                            'The old password provided is not correct',
                                             req.body.user.oldPassword,
-                                            'The old password provided is not correct'
                                         ),
                                         requestObject: requested_user
                                     };
@@ -178,8 +178,8 @@ exports.reset_user_password = [
                         let errorPayload = {
                             errors: abstractController.create_error_object(
                                 'user.email',
+                                'The email provided doesn\'t match',
                                 req.body.user.email,
-                                'The email provided doesn\'t match'
                             ),
                             requestObject: requested_user
                         };
