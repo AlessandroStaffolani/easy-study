@@ -28,6 +28,15 @@ UserSchema
         return full_name;
     });
 
+/**
+ * Check if candidatePassword is equal with user password
+ * @param candidatePassword
+ * @returns {Promise}
+ */
+UserSchema.methods.comparePassword = function(candidatePassword) {
+    return cryptoPassword.verify_password(candidatePassword, this.salt, this.password)
+};
+
 const UserModel = mongoose.model("User", UserSchema);
 
 /**
@@ -70,16 +79,6 @@ UserSchema.pre('save', function(next) {
         })
         .catch(err => next(err));
 });
-
-
-/**
- * Check if candidatePassword is equal with user password
- * @param candidatePassword
- * @returns {Promise}
- */
-UserSchema.methods.comparePassword = (candidatePassword) => {
-    return cryptoPassword.verify_password(candidatePassword, this.salt, this.password)
-};
 
 //Export model
 module.exports = UserModel;

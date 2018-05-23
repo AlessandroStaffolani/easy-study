@@ -2,8 +2,6 @@ const abstractController = require('./abstractController');
 const {body, validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
 
-/*TODO Testare tutte le api dell'user compresi errori */
-
 const User = require('../model/User');
 
 /**
@@ -148,6 +146,7 @@ exports.reset_user_password = [
     (req, res, next) => {
 
         let requested_user = req.body.user;
+        console.log(requested_user);
 
         if (abstractController.body_is_valid(req, res, next, requested_user)) {
             User.findById(req.params.id)
