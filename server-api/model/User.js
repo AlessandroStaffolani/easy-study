@@ -31,7 +31,7 @@ UserSchema
 const UserModel = mongoose.model("User", UserSchema);
 
 /**
- * Hock per verificare se l'email inserita è già presente nel database oppure no
+ * Hock that check if email exist
  */
 UserSchema.pre('save', function () {
 
@@ -55,8 +55,7 @@ UserSchema.pre('save', function () {
 });
 
 /**
- * Hock da eseguire durante il salvataggio di un oggetto User, che calcola il salt e l'hash della password
- * se stiamo inserendo un nuovo utente o se è stata modificata la password
+ * Hock to generate hash and salt of the user password, only if is new
  */
 UserSchema.pre('save', function(next) {
 
@@ -74,7 +73,7 @@ UserSchema.pre('save', function(next) {
 
 
 /**
- * Metodo per verificare se la password salvata e quella inviata corrispondono, restituisce una promise
+ * Check if candidatePassword is equal with user password
  * @param candidatePassword
  * @returns {Promise}
  */

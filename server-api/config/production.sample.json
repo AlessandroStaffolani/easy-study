@@ -5,5 +5,10 @@
   "dbURL": "<mongodb_url>",
   "sessionSecret": "<password>",
   "sessionName": "<session-name>",
-  "apiVersion": 1
+  "apiVersion": 1,
+  "passwordConfig": {
+    "hashBytes": 64,
+    "saltBytes": 16,
+    "iterations": 872791
+  }
 }
