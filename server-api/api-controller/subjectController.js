@@ -5,7 +5,11 @@ const User = require('../model/User');
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
-exports.post_subjects = [
+/**
+ * Create new subject
+ * @type {*[]}
+ */
+exports.post_subject = [
 
     body('subject')
         .exists().withMessage('No subject object provided.'),
@@ -61,3 +65,30 @@ exports.post_subjects = [
         }
     }
 ];
+
+/**
+ * Get all subjects of a specific user
+ */
+exports.get_user_subjects = (req, res, next) => {
+
+    Subject.find({ user: req.params.id })
+        .then(subjects => {
+            abstractController.retrun_request(req, res, next, {subjects: subjects})
+        })
+        .catch(err => next(err))
+
+};
+
+/**
+ * Get a specific subject
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.get_subject = (req, res, next) => {
+    Subject.findById(req.params.id)
+        .then(subject => {
+            abstractController.retrun_request(req, res, next, {subject: subject})
+        })
+        .catch(err => next(err))
+};

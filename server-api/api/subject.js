@@ -4,7 +4,8 @@ const subjectController = require('../api-controller/subjectController');
 const router = express.Router();
 
 /**
- * Body should be an array of subject objects
+ * Post new subject
+ * Body must be a subject object
  * {
  *      subject: {
  *              name: String,
@@ -13,6 +14,12 @@ const router = express.Router();
  *          }
  * }
  */
-router.post('/', subjectController.post_subjects);
+router.post('/', subjectController.post_subject);
+
+/**
+ * Get a specific subject
+ * @param id must be mongo subject object id
+ */
+router.get('/:id', subjectController.get_subject);
 
 module.exports = router;
