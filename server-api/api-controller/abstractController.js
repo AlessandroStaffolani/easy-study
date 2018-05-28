@@ -38,7 +38,7 @@ exports.return_bad_request = (req, res, next, payload = {}) => {
 };
 
 /**
- * Get express-validator mapped object and remove location param
+ * Get express-validators mapped object and remove location param
  * @param errorsObject
  * @returns {*}
  */
@@ -52,7 +52,7 @@ exports.reformat_errors = (errorsObject) => {
 };
 
 /**
- * Create an error object with the same structure of express-validator
+ * Create an error object with the same structure of express-validators
  * @param param
  * @param value
  * @param message
