@@ -32,5 +32,5 @@ npm-debug.log
 # WebStorm folder
 .idea
 
-server-api/config/development.json
-server-api/config/production.json
+/server-api/config/production.json
+/server-api/config/development.json

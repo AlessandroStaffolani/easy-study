@@ -112,12 +112,14 @@ passport.use(new LocalStrategy(User.authenticate()));*/
 const index = require('./api/index');
 const user = require('./api/user');
 const subject = require('./api/subject');
+const section = require('./api/section');
 
 const apiVersion = config.apiVersion;
 
 app.use('/', index);
 app.use('/api/V' + apiVersion + '/users', user);
 app.use('/api/V' + apiVersion + '/subjects', subject);
+app.use('/api/V' + apiVersion + '/sections', section);
 
 //==============================================================================
 

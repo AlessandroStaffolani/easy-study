@@ -18,9 +18,9 @@ const subject_validation_array = [
         .exists().withMessage('Subject user must be specified')
         .isMongoId().withMessage('Subject user must be a valid user id'),
 
-    sanitizeBody('user.name').trim().escape(),
-    sanitizeBody('user.date_exam').toDate().escape(),
-    sanitizeBody('user.user').trim().escape()
+    sanitizeBody('subject.name').trim().escape(),
+    sanitizeBody('subject.date_exam').toDate().escape(),
+    sanitizeBody('subject.user').trim().escape()
 ];
 
 /**

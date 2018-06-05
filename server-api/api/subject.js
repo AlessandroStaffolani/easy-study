@@ -1,6 +1,7 @@
 
 const express = require('express');
 const subjectController = require('../api-controller/subjectController');
+const sectionController = require('../api-controller/sectionController');
 const router = express.Router();
 
 /**
@@ -46,5 +47,11 @@ router.put('/:id', subjectController.update_subject);
  * @param id id must be mongo subject object id
  */
 router.delete('/:id', subjectController.delete_subject);
+
+/**
+ * Get all subject sections
+ * @param id id must be mongo subject object id
+ */
+router.get('/:id/sections', sectionController.get_subject_sections);
 
 module.exports = router;
