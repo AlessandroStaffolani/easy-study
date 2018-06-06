@@ -13,11 +13,30 @@ router.get('/', sectionController.get_all_sections);
  * {
  *      section: {
  *              name: String,
- *              user: User.ObjectId || String
+ *              subject: Subject.ObjectId
  *          }
  * }
  */
 router.post('/', sectionController.post_section);
+
+/**
+ * Get a specific section
+ * @param id must be mongo section object id
+ */
+router.get('/:id', sectionController.get_section);
+
+/**
+ * Update a specific section
+ * @param id must be mongo section object id
+ * Body must be a section object
+ * {
+ *      subject: {
+ *              name: String,
+ *              subject: Subject.ObjectId
+ *          }
+ * }
+ */
+router.put('/:id', sectionController.update_section);
 
 /**
  * Delete a specific section

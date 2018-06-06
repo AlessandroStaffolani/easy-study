@@ -77,9 +77,7 @@ exports.post_subject = [
                         .catch(err => next(err))
 
                 })
-                .catch(err => {
-                    console.log(err)
-                })
+                .catch(err => next(err))
 
         }
     }
@@ -141,9 +139,7 @@ exports.update_subject = [
                     return user;
 
                 })
-                .catch(err => {
-                    console.log(err)
-                });
+                .catch(err => next(err));
 
             let subjectPromise = Subject.findById(req.params.id)
                 .then(subject => {

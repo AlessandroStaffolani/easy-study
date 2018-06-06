@@ -49,7 +49,7 @@ exports.post_section = [
 
         if (abstractController.body_is_valid(req, res, next, request_section)) {
 
-            // check if user provided exist
+            // check if subject provided exist
             Subject.findById(request_section.subject)
                 .then(subject => {
 
@@ -77,6 +77,83 @@ exports.post_section = [
                     console.log(err)
                 })
 
+        }
+    }
+];
+
+/**
+ * Get a specific section
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.get_section = (req, res, next) => {
+    Section.findById(req.params.id)
+        .then(section => {
+            abstractController.retrun_request(req, res, next, {section: section})
+        })
+        .catch(err => next(err))
+};
+
+/**
+ * Update existing section
+ * @type {*[]}
+ */
+exports.update_section = [
+
+    section_validation_array,
+
+    (req, res, next) => {
+
+        let request_section = req.body.section;
+
+        if (abstractController.body_is_valid(req, res, next, request_section)) {
+
+            // check if subject provided exist
+            let subjectPromise = Subject.findById(request_section.subject)
+                .then(subject => {
+
+                    if (subject === null) {
+                        let errorPayload = {
+                            errors: abstractController.create_error_object('section.subject', 'Section subject not exist', request_section.subject),
+                            requestObject: request_section
+                        };
+                        return abstractController.return_bad_request(req, res, next, errorPayload);
+                    }
+
+                    return subject;
+                })
+                .catch(err => next(err));
+
+            let sectionPromise = Section.findById(req.params.id)
+                .then(section => {
+
+                    if (section) {
+
+                        section.name = request_section.name;
+                        section.subject = request_section.subject;
+
+                        return section;
+                    } else {
+                        return null;
+                    }
+
+                })
+                .catch(err => next(err));
+
+            Promise.all([subjectPromise, sectionPromise])
+                .then(results => {
+
+                    let section = results[1];
+                    if (section) {
+                        section.save()
+                            .then(sectionObject => {
+                                abstractController.retrun_request(req, res, next, {section: sectionObject})
+                            })
+                            .catch(err => next(err))
+                    }
+                })
+                .catch(err => next(err))
         }
     }
 ];

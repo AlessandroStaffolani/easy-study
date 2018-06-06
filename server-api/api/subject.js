@@ -16,7 +16,7 @@ router.get('/', subjectController.get_all_subjects);
  *      subject: {
  *              name: String,
  *              date_exam: Date,
- *              user: User.ObjectId || String
+ *              user: User.ObjectId
  *          }
  * }
  */
@@ -36,7 +36,7 @@ router.get('/:id', subjectController.get_subject);
  *      subject: {
  *              name: String,
  *              date_exam: Date,
- *              user: User.ObjectId || String
+ *              user: User.ObjectId
  *          }
  * }
  */
