@@ -29,8 +29,9 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-# WebStorm folder
-.idea
-
+# server config files
 /server-api/config/production.json
 /server-api/config/development.json
+
+# jetBrains folder
+/.idea
