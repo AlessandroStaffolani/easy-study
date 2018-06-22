@@ -1,7 +1,15 @@
 const abstractController = require('./abstractController');
+const User = require('../model/User');
 const Section = require('../model/Section');
 const Question = require('../model/Question');
+const Image = require('../model/Image');
 const customValidators = require('../validators/custom');
+
+
+const multer = require('multer');
+const upload = multer({
+      
+});
 
 const { body } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
@@ -20,15 +28,23 @@ const question_validation_array = [
     body('question.result')
         .custom(value => customValidators.isOneOfArray(value, RESULT_VALUES))
         .withMessage('Question result must be one of these values [-1, 0, 1].'),
+    body('question.images')
+        .custom(value => customValidators.isArray(value))
+        .withMessage('Question images must be an array of images.'),
     body('question.section')
         .exists().withMessage('Question section must be specified')
         .isMongoId().withMessage('Question section must be a valid subject id'),
+    body('question.user')
+        .exists().withMessage('Question user must be specified')
+        .isMongoId().withMessage('Question user must be a valid user id'),
 
     sanitizeBody('question.value').trim().escape(),
     sanitizeBody('question.important').trim().escape(),
     sanitizeBody('question.result').trim().toInt().escape(),
     sanitizeBody('question.note').trim().escape(),
-    sanitizeBody('question.section').trim().escape()
+    sanitizeBody('question.images').escape(),
+    sanitizeBody('question.section').trim().escape(),
+    sanitizeBody('question.user').trim().escape(),
 ];
 
 
@@ -200,4 +216,9 @@ exports.delete_section = (req, res, next) => {
     Section.findByIdAndDelete(req.params.id)
         .then(deletedSection => abstractController.retrun_request(req, res, next, { deletedSection: deletedSection }) )
         .catch(err => next(err))
+};
+
+const save_image = (image_value) => {
+
+
 };

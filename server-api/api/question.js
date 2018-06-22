@@ -17,7 +17,8 @@ router.get('/', questionController.get_all_questions);
  *              result: type: Number // possible values: {-1, 0, 1} -1 = red, 0 = orange, 1 = green [optional],
  *              note: type: String [optional],
  *              images: type: Array // array of images {fileName, label} [optional],
- *              section: Section.ObjectId
+ *              section: Section.ObjectId,
+ *              user: User.ObjectId
  *          }
  * }
  */

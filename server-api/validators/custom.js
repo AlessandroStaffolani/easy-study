@@ -16,3 +16,7 @@ exports.isOneOfArray = (value, checkers) => {
     }
     return false;
 };
+
+exports.isArray = (value) => {
+    return Array.isArray(value);
+};
