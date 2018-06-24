@@ -8,12 +8,11 @@
   "scripts": {
     "build": "neutrino build",
     "start": "neutrino start",
+    "flow":"flow",
     "lint": "neutrino lint",
     "test": "neutrino test"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-flow": "^6.23.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -24,6 +23,9 @@
     "@neutrinojs/karma": "^8.2.3",
     "@neutrinojs/mocha": "^8.2.3",
     "@neutrinojs/react": "^8.2.3",
-    "neutrino": "^8.2.3"
+    "neutrino": "^8.2.3",
+    "flow-bin":"",
+    "babel-preset-flow": "^6.23.0",
+    "babel-cli": "^6.26.0"
   }
 }
