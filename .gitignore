@@ -30,9 +30,8 @@ node_modules
 npm-debug.log
 
 # server config files
-/server-api/config/production.json
-/server-api/config/development.json
+production.json
+development.json
 
 # jetBrains folder
 /.idea
-
