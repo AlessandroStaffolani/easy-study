@@ -3,16 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:ale8193/easy-study.git",
-  "author": "sabbio93 <sabbio.a93@gmail.com>,ale8193 <>",
+  "author": "sabbio93 <sabbio.a93@gmail.com>,ale8193 <alessandro.staffolani.93@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "neutrino build",
     "start": "neutrino start",
-    "flow":"flow",
+    "flow": "flow",
     "lint": "neutrino lint",
     "test": "neutrino test"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -23,9 +24,9 @@
     "@neutrinojs/karma": "^8.2.3",
     "@neutrinojs/mocha": "^8.2.3",
     "@neutrinojs/react": "^8.2.3",
-    "neutrino": "^8.2.3",
-    "flow-bin":"",
+    "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
-    "babel-cli": "^6.26.0"
+    "flow-bin": "",
+    "neutrino": "^8.2.3"
   }
 }

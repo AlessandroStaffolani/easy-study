@@ -1,19 +1,39 @@
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './App';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import App from './view/App';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#ffcdd2',
+      main: '#f44336',
+      dark: '#d32f2f',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ffffff',
+      main: '#ffffff',
+      dark: '#606060',
+      contrastText: '#000',
+    },
+  },
+});
 
 const root = document.getElementById('root');
 const load = () => render(
   (
-    <AppContainer>
-      <App />
-    </AppContainer>
+    <MuiThemeProvider theme={theme}>
+      <AppContainer>
+          <App />
+      </AppContainer>
+    </MuiThemeProvider>
   ), root,
 );
 
 // This is needed for Hot Module Replacement
 if (module.hot) {
-  module.hot.accept('./App', load);
+  module.hot.accept('./view/App', load);
 }
 
 load();
