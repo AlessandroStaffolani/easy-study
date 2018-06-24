@@ -69,3 +69,9 @@ development.json
 
 # Mac OS folder
 .DS_Store
+
+#linux folde
+.directory
+
+.coverage/
+./yarn*
