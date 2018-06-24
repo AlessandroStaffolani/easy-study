@@ -25,7 +25,7 @@ const load = () => render(
   (
     <MuiThemeProvider theme={theme}>
       <AppContainer>
-          <App />
+        <App />
       </AppContainer>
     </MuiThemeProvider>
   ), root,

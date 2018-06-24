@@ -4,16 +4,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBarButton from './components/AppBarButton';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
 
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
   appBar: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
   },
   title: {
     fontWeight: 'bold',
@@ -34,26 +31,25 @@ class ApplicationBar extends Component {
         id: 0,
         label: 'Materie',
         path: '/subjects',
-        code: 'subjects'
+        code: 'subjects',
       },
       {
         id: 1,
         label: 'Domande',
         path: '/questions',
-        code: 'questions'
+        code: 'questions',
       },
       {
         id: 2,
         label: 'Libretto',
         path: '/booklet',
-        code: 'booklet'
+        code: 'booklet',
       },
     ],
   };
 
   render() {
     const { classes, name } = this.props;
-    console.log(this.props);
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
@@ -61,7 +57,8 @@ class ApplicationBar extends Component {
             <Typography variant="headline" color="inherit" className={[classes.flex, classes.title]}>
               {name}
             </Typography>
-            {this.state.pages.map(page => <AppBarButton key={page.id} path={page.path} code={page.code} value={page.label}/>)}
+            {this.state.pages.map(page =>
+              <AppBarButton key={page.id} path={page.path} code={page.code} value={page.label} />)}
           </Toolbar>
         </AppBar>
       </div>

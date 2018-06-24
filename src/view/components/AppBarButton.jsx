@@ -1,8 +1,7 @@
-import { Component } from 'react';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-const styles = (theme) => ({
+const styles = () => ({
   buttonWrapper: {
     display: 'inline-block',
     height: '64px',
@@ -12,7 +11,7 @@ const styles = (theme) => ({
       height: '60px',
       borderBottom: '4px solid #fff',
       color: 'rgba(255,255,255,1)',
-    }
+    },
   },
   appBarButton: {
     padding: '22px 20px',
