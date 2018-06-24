@@ -66,3 +66,6 @@ development.json
 
 # jetBrains folder
 /.idea
+
+# Mac OS folder
+.DS_Store
