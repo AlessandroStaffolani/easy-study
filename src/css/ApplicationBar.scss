@@ -1,0 +1,73 @@
+
+.application-bar {
+  top: 0;
+  background-color: $applicationBarColor;
+
+  .mdc-top-app-bar__title {
+    text-transform: uppercase;
+  }
+
+  .app-bar-button {
+    width: auto;
+    color: rgba(255,255,255,0.7);
+    height: $mdc-top-app-bar-row-height;
+    position: relative;
+    .app-bar-indicator {
+      position: absolute;
+      bottom: 0;
+      max-height: 0;
+      overflow: hidden;
+      -webkit-transition: max-height 0.2s ease-out;
+      -moz-transition: max-height 0.2s ease-out;
+      -ms-transition: max-height 0.2s ease-out;
+      -o-transition: max-height 0.2s ease-out;
+      transition: max-height 0.2s ease-out;
+    }
+    &:active .app-bar-indicator {
+      width: 100%;
+      background-color: #ffffff;
+      max-height: 4px;
+      height: 4px;
+    }
+    &:hover > span {
+      color: #ffffff;
+    }
+    &.active {
+      color: #ffffff;
+      .app-bar-indicator {
+        width: 100%;
+        background-color: #ffffff;
+        max-height: 4px;
+        height: 4px;
+      }
+    }
+  }
+
+  .app-bar-button.mdc-top-app-bar__action-item::before,
+  .app-bar-button.mdc-top-app-bar__action-item::after,
+  .app-bar-button.mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):active::after {
+    border-radius: 0;
+  }
+}
+
+@media screen and (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+
+  .application-bar-menu-icon {
+    display: none;
+  }
+
+  .mdc-top-app-bar__section--align-end {
+    display: inline-flex;
+  }
+}
+
+@media screen and (max-width: mdc-layout-grid-breakpoint-min(desktop)) {
+
+  .application-bar-menu-icon {
+    display: block;
+  }
+
+  .mdc-top-app-bar__section--align-end {
+    display: none;
+  }
+}

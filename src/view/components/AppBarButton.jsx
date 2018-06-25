@@ -1,33 +1,26 @@
-import { withStyles, withTheme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import React from 'react';
+import withRipple from '@material/react-ripple';
 
-const styles = () => ({
-  buttonWrapper: {
-    display: 'inline-block',
-    height: '64px',
-    lineHeight: '64px',
-    color: 'rgba(255,255,255,0.7)',
-    '&:hover': {
-      height: '60px',
-      borderBottom: '4px solid #fff',
-      color: 'rgba(255,255,255,1)',
-    },
-  },
-  appBarButton: {
-    padding: '22px 20px',
-    borderRadius: 0,
-  },
-});
+const AppBarButton = (props) => {
+  const {
+    label,
+    className = '',
+    initRipple,
+    unbounded,
+    path,
+  } = props;
 
-function AppBarButton(props) {
-  const { classes, value } = props;
+  const classes = `app-bar-button ${className}`;
+
   return (
-    <div className={classes.buttonWrapper}>
-      <Button color="inherit" className={classes.appBarButton}>
-        {value}
-      </Button>
-    </div>
+    <span
+      className={classes}>
+      <span>
+        {label}
+      </span>
+      <span className="app-bar-indicator" />
+    </span>
   );
-}
+};
 
-export default withStyles(styles)(withTheme()(AppBarButton));
+export default (AppBarButton);

@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.App {
+
+  .content {
+    margin-top: 64px;
+  }
+}
+
+$mdc-theme-primary: #F44336;
+$mdc-theme-secondary: #ffffff;
+$mdc-theme-on-primary: #ffffff;
+$mdc-theme-on-secondary: #616161;
+
+@import "@material/react-top-app-bar/index";
+@import "@material/typography/mdc-typography";
+@import "@material/elevation/mdc-elevation";
+@import "@material/layout-grid/mdc-layout-grid";
+@import "variables";
+@import "ApplicationBar";

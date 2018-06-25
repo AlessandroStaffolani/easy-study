@@ -7,13 +7,26 @@
   "license": "MIT",
   "scripts": {
     "build": "neutrino build",
+    "build-all": "npm-run-all build-css build",
+    "build-css": "node-sass-chokidar --include-path ./src/css --include-path ./node_modules ./src/css/App.scss -o ./src/css",
     "start": "neutrino start",
+    "start-all": "npm-run-all -p watch-css start",
     "flow": "flow",
     "lint": "neutrino lint",
-    "test": "neutrino test"
+    "test": "neutrino test",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src/css --include-path ./node_modules --watch ./src/css/App.scss ./src/css/App.css"
   },
   "dependencies": {
     "@material-ui/core": "^1.2.3",
+    "@material/elevation": "^0.36.1",
+    "@material/layout-grid": "^0.34.0",
+    "@material/react-material-icon": "^0.3.0",
+    "@material/react-ripple": "^0.3.0",
+    "@material/react-top-app-bar": "^0.3.0",
+    "@material/theme": "^0.35.0",
+    "@material/typography": "^0.35.0",
+    "node-sass-chokidar": "^1.3.0",
+    "npm-run-all": "^4.1.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
