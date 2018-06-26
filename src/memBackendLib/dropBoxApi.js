@@ -2,21 +2,8 @@
 import {parseQueryString,later} from '../utils.js'
 var DropboxApi= require('dropbox');
 const retryTimes=3;
-
-type cardToStore=
-{
-  contents:string;
-  name:string;
-}
-type cardFromStore=
-{
-  content:string;
-  hash:sring;
-}
-const CLIENT_ID = 'amzqeu333ykv7ct';
-
-const invert  = (p)  => new Promise((res, rej) => p.then(rej, res));
-const firstOf = (ps) => invert(Promise.all(ps.map(invert)));
+const CLIENT_ID ='aoy9qcb9hp3e01h';
+const backendHost = process.env.REACT_APP_BACKEND_HOST || 'http://localhost:5000';
 
 function getAccessTokenFromUrl():string
 {
@@ -26,7 +13,7 @@ function getAccessTokenFromUrl():string
 function getAccess()
 {
  var dbx = new DropboxApi({ clientId: CLIENT_ID });
- var authUrl = dbx.getAuthenticationUrl('http://localhost:5000');
+ var authUrl = dbx.getAuthenticationUrl(backendHost);
  return authUrl;
 }
 
@@ -53,13 +40,14 @@ let dropbox= function()
     dbx= new DropboxApi({ accessToken: token});
   }
 
-  function getCardFromStore(name:string):Promise<cardFromStore>
+  function getObjectFromStore(name:string):Promise<objectFromStore>
   {
       let nameFile= name+".txt";
       let promiseFile:Promise<File>=dbx.filesDownload({path: '/' + nameFile});
       let promiseReader=promiseFile.then(file=>reader(file.fileBlob));
       return Promise.all([promiseReader,promiseFile]).then(([contentfile,metadatadata])=>
         {
+        //TODO BUG change to return object use of the hash for cacher
           let content=contentfile.result,
               hash=metadatadata.content_hash;
           return {content,hash};
@@ -78,6 +66,7 @@ let dropbox= function()
         }));
   }
 
+//wait unitl a change on dropbox folder
   function waiter(cursor,timeout=30,callback)
   {
     let wait=dbx.filesListFolderLongpoll({cursor,timeout})
@@ -111,10 +100,10 @@ let dropbox= function()
     }
   }
 
-  function createNewCardOnStore(card:cardToStore,mode="add")
+  function createNewobjectOnStore(object:objectToStore,mode="add")
   {
-    let nameFile= card.name+".txt";
-    let file = new File([card.contents], nameFile,{type: "text/plain",});
+    let nameFile= object.name+".txt";
+    let file = new File([object.contents], nameFile,{type: "text/plain",});
     return new Promise(function(resolve,reject)
     {
       let fileUpload= dbx.filesUpload({path: '/' + file.name, contents: file,mode});
@@ -122,9 +111,9 @@ let dropbox= function()
     });
   }
 
-  function modifyCardOnStore(card:cardToStore)
+  function modifyObjectOnStore(object:objectToStore)
   {
-    return createNewCardOnStore(card, "overwrite");
+    return createNewObjectOnStore(object, "overwrite");
   }
 
   function isInitiated():Promise<boolean>
@@ -135,13 +124,13 @@ let dropbox= function()
       files.entries.filter(file=>file.name=="init.txt").length==1);
   }
 
-  function deleteCard(card:string)
+  function deleteObject(object:string)
   {
-    let fileName=card+".txt";
+    let fileName=object+".txt";
     return dbx.filesDelete({path:"/"+fileName});
   }
 
-return {init,deleteCard,isInitiated,modifyCardOnStore,createNewCardOnStore,getCardFromStore,listAllFiles,setUpdater}
+return {init,deleteobject,isInitiated,modifyobjectOnStore,createNewobjectOnStore,getobjectFromStore,listAllFiles,setUpdater}
 };
 
 let exports = dropbox();
@@ -149,11 +138,11 @@ exports['getAccess']=getAccess;
 
 let init=exports.init,
     listAllFiles=exports.listAllFiles,
-    deleteCard=exports.deleteCard,
+    deleteobject=exports.deleteobject,
     isInitiated=exports.isInitiated,
-    modifyCardOnStore=exports.modifyCardOnStore,
-    createNewCardOnStore=exports.createNewCardOnStore,
-    getCardFromStore=exports.getCardFromStore;
+    modifyobjectOnStore=exports.modifyobjectOnStore,
+    createNewobjectOnStore=exports.createNewobjectOnStore,
+    getobjectFromStore=exports.getobjectFromStore;
 
 export default exports;
-export {init,deleteCard,isInitiated,modifyCardOnStore,createNewCardOnStore,getCardFromStore,getAccess,getAccessTokenFromUrl};
+export {init,deleteobject,isInitiated,modifyobjectOnStore,createNewobjectOnStore,getobjectFromStore,getAccess,getAccessTokenFromUrl};

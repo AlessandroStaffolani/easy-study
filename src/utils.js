@@ -74,7 +74,8 @@ function later(delay)
       setTimeout(resolve, delay);
   });
 }
-
+const invert  = (p)  => new Promise((res, rej) => p.then(rej, res));
+const firstOf = (ps) => invert(Promise.all(ps.map(invert)));
 const getTimeStamp=()=>(new Date).getTime();
 
 export const reservedField=["masterAPI","masterToken"];
