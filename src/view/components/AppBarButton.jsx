@@ -1,5 +1,4 @@
 import React from 'react';
-import withRipple from '@material/react-ripple';
 
 const AppBarButton = (props) => {
   const {
@@ -14,7 +13,8 @@ const AppBarButton = (props) => {
 
   return (
     <span
-      className={classes}>
+      className={classes}
+    >
       <span>
         {label}
       </span>
