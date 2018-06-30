@@ -5,6 +5,8 @@
 
   .mdc-top-app-bar__title {
     text-transform: uppercase;
+    font-family: "Roboto Mono",monospace;
+    font-weight: 300;
   }
 
   .app-bar-button {
@@ -50,11 +52,26 @@
   }
 }
 
-@media screen and (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
+.mdc-drawer__header {
+  background-color: $mdc-theme-primary;
+  color: $mdc-theme-on-primary;
 
-  .application-bar-menu-icon {
-    display: none;
+  .user-profile {
+
+    .user-profile-image {
+      margin-bottom: 13px;
+      .material-icons {
+        font-size: 3.2rem;
+      }
+    }
+    .user-profile-name {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
   }
+}
+
+@media screen and (min-width: mdc-layout-grid-breakpoint-min(desktop)) {
 
   .mdc-top-app-bar__section--align-end {
     display: inline-flex;
@@ -62,10 +79,6 @@
 }
 
 @media screen and (max-width: mdc-layout-grid-breakpoint-min(desktop)) {
-
-  .application-bar-menu-icon {
-    display: block;
-  }
 
   .mdc-top-app-bar__section--align-end {
     display: none;

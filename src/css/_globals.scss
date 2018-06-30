@@ -1,0 +1,24 @@
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.roboto-mono {
+  font-family: "Roboto Mono",monospace;
+  font-weight: 300;
+  &.uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.content-wrapper {
+  padding-top: 64px;
+  display: flex;
+  min-height: 100vh;
+
+  .content {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+}

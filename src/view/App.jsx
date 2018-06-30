@@ -1,6 +1,7 @@
 import { React, Component } from 'react';
 import '../css/App.css';
-import ApplicationBar from './ApplicationBar';
+import AppNavigation from './AppNavigation';
+import Content from './Content';
 
 export default class App extends Component {
   state = {
@@ -11,18 +12,45 @@ export default class App extends Component {
         label: 'Materie',
         path: '/subjects',
         code: 'subjects',
+        type: 'main',
+        icon: 'collections_bookmark',
+        active: true,
       },
       {
         id: 1,
         label: 'Domande',
         path: '/questions',
         code: 'questions',
+        type: 'main',
+        icon: 'bookmark',
+        active: false,
       },
       {
         id: 2,
         label: 'Libretto',
         path: '/booklet',
         code: 'booklet',
+        type: 'main',
+        icon: 'library_books',
+        active: false,
+      },
+      {
+        id: 3,
+        label: 'Profilo',
+        path: '/profile',
+        code: 'profile',
+        type: 'profile',
+        icon: 'account_circle',
+        active: false,
+      },
+      {
+        id: 4,
+        label: 'Log out',
+        path: '/logout',
+        code: 'logout',
+        type: 'profile',
+        icon: 'exit_to_app',
+        active: false,
       },
     ],
   };
@@ -30,11 +58,9 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <ApplicationBar name={this.state.name} pages={this.state.pages} />
-        <div className="content mdc-typography">
-          <h1 className="mdc-typography--headline3">Welcome to {this.state.name}</h1>
-          <p className="mdc-typography--subtitle2"> A wonderfull graphics</p>
-        </div>
+        <AppNavigation name={this.state.name} pages={this.state.pages}>
+          <Content name={this.state.name}/>
+        </AppNavigation>
       </div>
     );
   }
