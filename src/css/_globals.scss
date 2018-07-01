@@ -13,12 +13,26 @@ body {
 }
 
 .content-wrapper {
-  padding-top: 64px;
   display: flex;
   min-height: 100vh;
 
   .content {
     max-width: 1024px;
     margin: 0 auto;
+    padding: 40px 16px 100px;
+  }
+}
+
+@media screen and (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
+
+  .content-wrapper {
+    padding-top: 64px;
+  }
+}
+
+@media screen and (max-width: mdc-layout-grid-breakpoint-min(tablet)) {
+
+  .content-wrapper {
+    padding-top: 56px;
   }
 }
