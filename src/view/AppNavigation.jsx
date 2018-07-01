@@ -8,59 +8,44 @@ import NavigationDrawer from './components/NavigationDrawer';
 class AppNavigation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      drawer: null,
-      drawerOpen: false,
-    };
+
+    this.drawer = null;
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.setDrawerRef = this.setDrawerRef.bind(this);
   }
 
   componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
+    this.drawer = null;
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    const width = window.innerWidth;
-    if (width < 840) {
-      this.setState({
-        drawer: this.initTemporaryDrawer(),
-      });
-    } else {
-      this.setState({
-        drawer: this.initPersistenDrawer(),
-      });
+  componentDidUpdate(prevProps) {
+    if (prevProps.screenType !== this.props.screenType) {
+      this.drawer = null;
     }
   }
 
-  toggleDrawer = () => {
-    const { drawer } = this.state;
-    let { drawerOpen } = this.state;
-    drawerOpen = !drawer.foundation_.isOpen();
-    drawer.open = drawerOpen;
+  setDrawerRef(drawer) {
+    this.drawerDOM = drawer;
+  }
 
-    this.setState({
-      drawer: drawer,
-      drawerOpen: drawerOpen,
-    });
+  toggleDrawer = () => {
+    if (this.drawer === null) {
+      this.drawer = this.props.screenType === 'desktop' ? this.initPersistenDrawer() : this.initTemporaryDrawer();
+    }
+    this.drawer.open = !this.drawer.foundation_.isOpen();
   };
 
   initPersistenDrawer = () => {
-    return new MDCPersistentDrawer(document.querySelector('.mdc-drawer--persistent'))
+    return new MDCPersistentDrawer(this.drawerDOM)
   };
 
   initTemporaryDrawer = () => {
-    return new MDCTemporaryDrawer(document.querySelector('.mdc-drawer--temporary'));
+    return new MDCTemporaryDrawer(this.drawerDOM);
   };
 
   render() {
-    const { name, pages, children } = this.props;
+    const { name, pages, children, screenType } = this.props;
     const applicationPages = [];
     /*pages.filter(page => page.type === 'main').map(page =>
       applicationPages.push(<AppBarButton key={page.id} label={page.label} path={page.path} code={page.code}/>));*/
@@ -78,7 +63,7 @@ class AppNavigation extends Component {
           actionItems={applicationPages}
         />
         <div className="content-wrapper">
-          <NavigationDrawer pages={pages} />
+          <NavigationDrawer pages={pages} screenType={screenType} setRef={this.setDrawerRef} />
           {children}
         </div>
       </div>
