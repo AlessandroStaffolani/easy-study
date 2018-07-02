@@ -38,7 +38,7 @@ class NavigationDrawer extends Component {
   };
 
   render() {
-    const { pages, setRef } = this.props;
+    const { pages, setRef, handlePageClick } = this.props;
     const { type } = this.state;
     const mainClass = `mdc-drawer mdc-typography mdc-drawer--${type}`;
 
@@ -54,20 +54,30 @@ class NavigationDrawer extends Component {
             </div>
           </header>
           <nav id="icon-with-text-demo" className="mdc-drawer__content mdc-list">
-            {pages.filter(page => page.type === 'main').map(page => (
-              <a key={page.id} onClick={(event) => this.handleLinkClick(event, page.path)} className={page.active ?
-                'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
-                <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
-              </a>
-            ))}
+            {Object.keys(pages).map(key => {
+              if (pages[key].type === 'main') {
+                let page = pages[key];
+                return (
+                  <a key={page.id} onClick={(event) => handlePageClick(event, key)} className={page.active ?
+                    'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
+                    <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
+                  </a>
+                )
+              }
+            })}
             <hr className="mdc-list-divider" />
             <span className="mdc-typography--subtitle1 mdc-drawer--subtitle">Account</span>
-            {pages.filter(page => page.type === 'profile').map(page => (
-              <a key={page.id} onClick={(event) => this.handleLinkClick(event, page.path)} className={page.active ?
-                'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
-                <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
-              </a>
-            ))}
+            {Object.keys(pages).map(key => {
+              if (pages[key].type === 'account') {
+                let page = pages[key];
+                return (
+                  <a key={page.id} onClick={(event) => handlePageClick(event, key)} className={page.active ?
+                    'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
+                    <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
+                  </a>
+                )
+              }
+            })}
           </nav>
         </nav>
       </aside>
