@@ -1,8 +1,11 @@
 import { React, Component } from 'react';
 import '../css/App.css';
 import AppNavigation from './AppNavigation';
-import Content from './Content';
+import Default from './Content';
 import Subject from './pages/subject/Index';
+import Question from './pages/question/Index';
+import Booklet from './pages/booklet/Index';
+import Profile from './pages/profile/Index';
 
 const BREAKPOINTS = {
   tablet: 480,
@@ -15,8 +18,17 @@ export default class App extends Component {
     this.state = {
       name: 'Easy Study',
       screenType: 'desktop',
-      currentPage: '',
+      currentPage: 'home',
       pages: {
+        home: {
+          id: 0,
+          label: 'Home page',
+          path: '/',
+          type: 'home',
+          icon: 'home',
+          active: true,
+          content: <Default />,
+        },
         subjects: {
           id: 0,
           label: 'Materie',
@@ -24,6 +36,7 @@ export default class App extends Component {
           type: 'main',
           icon: 'collections_bookmark',
           active: false,
+          content: <Subject />,
         },
         questions: {
           id: 1,
@@ -32,6 +45,7 @@ export default class App extends Component {
           type: 'main',
           icon: 'bookmark',
           active: false,
+          content: <Question />,
         },
         booklet: {
           id: 2,
@@ -40,6 +54,7 @@ export default class App extends Component {
           type: 'main',
           icon: 'library_books',
           active: false,
+          content: <Booklet />,
         },
         profile: {
           id: 3,
@@ -48,6 +63,7 @@ export default class App extends Component {
           type: 'account',
           icon: 'account_circle',
           active: false,
+          content: <Profile />,
         },
         logout: {
           id: 4,
@@ -56,6 +72,7 @@ export default class App extends Component {
           type: 'account',
           icon: 'exit_to_app',
           active: false,
+          content: <Default />,
         }
       },
     };
@@ -110,10 +127,7 @@ export default class App extends Component {
 
   render() {
     const { currentPage, name, screenType } = this.state;
-    let content = <Content name={name} screenType={screenType} />;
-    if (currentPage === 'subjects') {
-      content = <Subject />;
-    }
+    const content = this.state.pages[currentPage].content;
     return (
       <div className="App">
         <AppNavigation {...this.state} handlePageClick={this.handlePageClick}>
