@@ -1,7 +1,11 @@
 import { React, Component } from 'react';
 import '../css/App.css';
 import AppNavigation from './AppNavigation';
-import Content from './Content';
+import Default from './Content';
+import Subject from './pages/subject/Index';
+import Question from './pages/question/Index';
+import Booklet from './pages/booklet/Index';
+import Profile from './pages/profile/Index';
 
 const BREAKPOINTS = {
   tablet: 480,
@@ -14,56 +18,67 @@ export default class App extends Component {
     this.state = {
       name: 'Easy Study',
       screenType: 'desktop',
-      pages: [
-        {
+      currentPage: 'home',
+      pages: {
+        home: {
+          id: 0,
+          label: 'Home page',
+          path: '/',
+          type: 'home',
+          icon: 'home',
+          active: true,
+          content: <Default />,
+        },
+        subjects: {
           id: 0,
           label: 'Materie',
           path: '/subjects',
-          code: 'subjects',
           type: 'main',
           icon: 'collections_bookmark',
           active: false,
+          content: <Subject />,
         },
-        {
+        questions: {
           id: 1,
           label: 'Domande',
           path: '/questions',
-          code: 'questions',
           type: 'main',
           icon: 'bookmark',
           active: false,
+          content: <Question />,
         },
-        {
+        booklet: {
           id: 2,
           label: 'Libretto',
           path: '/booklet',
-          code: 'booklet',
           type: 'main',
           icon: 'library_books',
           active: false,
+          content: <Booklet />,
         },
-        {
+        profile: {
           id: 3,
           label: 'Profilo',
           path: '/profile',
-          code: 'profile',
-          type: 'profile',
+          type: 'account',
           icon: 'account_circle',
           active: false,
+          content: <Profile />,
         },
-        {
+        logout: {
           id: 4,
           label: 'Log out',
           path: '/logout',
-          code: 'logout',
-          type: 'profile',
+          type: 'account',
           icon: 'exit_to_app',
           active: false,
-        },
-      ],
+          content: <Default />,
+        }
+      },
     };
 
     this.updateWindowScreenType = this.updateWindowScreenType.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   componentDidMount() {
@@ -92,11 +107,31 @@ export default class App extends Component {
     }
   }
 
+  handlePageClick = (event, pageKey) => {
+    event.preventDefault();
+    const pages = this.getDisactivedPages();
+    pages[pageKey].active = true;
+    this.setState({
+      pages,
+      currentPage: pageKey,
+    });
+  };
+
+  getDisactivedPages = () => {
+    const { pages } = this.state;
+    Object.keys(pages).map(key => {
+      pages[key].active = false;
+    });
+    return pages;
+  };
+
   render() {
+    const { currentPage, name, screenType } = this.state;
+    const content = this.state.pages[currentPage].content;
     return (
       <div className="App">
-        <AppNavigation {...this.state}>
-          <Content name={this.state.name} screenType={this.state.screenType} />
+        <AppNavigation {...this.state} handlePageClick={this.handlePageClick}>
+          {content}
         </AppNavigation>
       </div>
     );
