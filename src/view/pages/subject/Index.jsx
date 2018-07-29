@@ -1,6 +1,11 @@
 import { React, Component } from 'react';
+import subjects from '../../../model/subject';
 
 class Index extends Component {
+  constructor(props) {
+    super(props);
+
+  }
 
   render() {
     return (

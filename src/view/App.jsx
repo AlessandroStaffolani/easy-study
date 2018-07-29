@@ -19,6 +19,7 @@ export default class App extends Component {
       name: 'Easy Study',
       screenType: 'desktop',
       currentPage: 'home',
+      currentSubject: '',
       pages: {
         home: {
           id: 0,
@@ -38,7 +39,7 @@ export default class App extends Component {
           active: false,
           content: <Subject />,
         },
-        questions: {
+        /*questions: {
           id: 1,
           label: 'Domande',
           path: '/questions',
@@ -46,7 +47,7 @@ export default class App extends Component {
           icon: 'bookmark',
           active: false,
           content: <Question />,
-        },
+        },*/
         booklet: {
           id: 2,
           label: 'Libretto',
@@ -107,13 +108,14 @@ export default class App extends Component {
     }
   }
 
-  handlePageClick = (event, pageKey) => {
+  handlePageClick = (event, pageKey, subjectName = undefined) => {
     event.preventDefault();
     const pages = this.getDisactivedPages();
     pages[pageKey].active = true;
     this.setState({
       pages,
       currentPage: pageKey,
+      currentSubject: subjectName
     });
   };
 

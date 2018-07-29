@@ -1809,6 +1809,23 @@ body {
 .mdc-drawer--persistent.mdc-drawer--open, .mdc-drawer--persistent .mdc-drawer__drawer {
   width: 280px; }
 
+.subject-list {
+  overflow: hidden;
+  max-height: 0;
+  transition-property: max-height;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  .subject-list.active {
+    max-height: 500px; }
+  .subject-list .mdc-list-item {
+    padding-left: 72px; }
+
+.mdc-drawer span.mdc-list-item {
+  cursor: pointer; }
+
+.mdc-drawer .mdc-list-item__graphic {
+  margin-right: 15px; }
+
 @media screen and (min-width: 840px) {
   .mdc-top-app-bar__section--align-end {
     display: inline-flex; } }

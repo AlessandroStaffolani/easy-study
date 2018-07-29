@@ -1,13 +1,17 @@
 import { React, Component } from 'react';
+import { subjects } from '../../model/subject';
 
 class NavigationDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: props.screenType === 'desktop' ? 'persistent' : 'temporary'
+      type: props.screenType === 'desktop' ? 'persistent' : 'temporary',
+      subjects: subjects,
+      subjectListClass: 'subject-list',
     };
     this.handleLinkClick = this.handleLinkClick.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.handleSubjectClick = this.handleSubjectClick.bind(this);
   }
 
   componentDidMount() {
@@ -37,9 +41,23 @@ class NavigationDrawer extends Component {
     console.log(target);
   };
 
+  handleSubjectClick = (event) => {
+    event.preventDefault();
+    const { subjectListClass } = this.state;
+    if (subjectListClass === 'subject-list') {
+      this.setState({
+        subjectListClass: 'subject-list active',
+      })
+    } else {
+      this.setState({
+        subjectListClass: 'subject-list',
+      })
+    }
+  };
+
   render() {
     const { pages, setRef, handlePageClick } = this.props;
-    const { type } = this.state;
+    const { type, subjects } = this.state;
     const mainClass = `mdc-drawer mdc-typography mdc-drawer--${type}`;
 
     return (
@@ -57,12 +75,34 @@ class NavigationDrawer extends Component {
             {Object.keys(pages).map(key => {
               if (pages[key].type === 'main') {
                 let page = pages[key];
-                return (
-                  <a key={page.id} onClick={(event) => handlePageClick(event, key)} className={page.active ?
-                    'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
-                    <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
-                  </a>
-                )
+                if (key === 'subjects') {
+                  return (
+                    <div>
+                      <span key={page.id}
+                            onClick={this.handleSubjectClick}
+                            className={page.active ?
+                        'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'}>
+                        <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
+                      </span>
+                      <div className={this.state.subjectListClass}>
+                        <ul className="mdc-list" aria-orientation="vertical">
+                          {subjects.map(subject =>
+                            <a key={subject.id} onClick={(event) => handlePageClick(event, key, subject.name)} className={'mdc-list-item'} href="subjects" >
+                              {subject.name}
+                            </a>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  )
+                } else {
+                  return (
+                    <a key={page.id} onClick={(event) => handlePageClick(event, key)} className={page.active ?
+                      'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
+                      <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
+                    </a>
+                  )
+                }
               }
             })}
             <hr className="mdc-list-divider" />
