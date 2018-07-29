@@ -1,15 +1,14 @@
 import { React, Component } from 'react';
-import { subjects } from '../../model/subject';
+import { getSubjects } from '../../controller/subjectController';
 
 class NavigationDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       type: props.screenType === 'desktop' ? 'persistent' : 'temporary',
-      subjects: subjects,
+      subjects: getSubjects(),
       subjectListClass: 'subject-list',
     };
-    this.handleLinkClick = this.handleLinkClick.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.handleSubjectClick = this.handleSubjectClick.bind(this);
   }
@@ -36,11 +35,6 @@ class NavigationDrawer extends Component {
     }
   }
 
-  handleLinkClick = (event, target) => {
-    event.preventDefault();
-    console.log(target);
-  };
-
   handleSubjectClick = (event) => {
     event.preventDefault();
     const { subjectListClass } = this.state;
@@ -56,7 +50,7 @@ class NavigationDrawer extends Component {
   };
 
   render() {
-    const { pages, setRef, handlePageClick } = this.props;
+    const { pages, setRef, handlePageClick, currentPage, currentSubject } = this.props;
     const { type, subjects } = this.state;
     const mainClass = `mdc-drawer mdc-typography mdc-drawer--${type}`;
 
@@ -80,14 +74,19 @@ class NavigationDrawer extends Component {
                     <div>
                       <span key={page.id}
                             onClick={this.handleSubjectClick}
-                            className={page.active ?
-                        'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'}>
+                            className={currentPage === key ?
+                            'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'}>
                         <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
                       </span>
                       <div className={this.state.subjectListClass}>
                         <ul className="mdc-list" aria-orientation="vertical">
                           {subjects.map(subject =>
-                            <a key={subject.id} onClick={(event) => handlePageClick(event, key, subject.name)} className={'mdc-list-item'} href="subjects" >
+                            <a
+                              key={subject.id}
+                              onClick={(event) => handlePageClick(event, key, subject.name)}
+                              className={currentSubject === subject.name ?
+                                'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'}
+                              href="subjects" >
                               {subject.name}
                             </a>
                           )}
@@ -97,8 +96,13 @@ class NavigationDrawer extends Component {
                   )
                 } else {
                   return (
-                    <a key={page.id} onClick={(event) => handlePageClick(event, key)} className={page.active ?
-                      'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'} href={page.path}>
+                    <a
+                      key={page.id}
+                      onClick={(event) => handlePageClick(event, key)}
+                      className={currentPage === key ?
+                      'mdc-list-item mdc-list-item--activated' : 'mdc-list-item'}
+                      href={page.path}
+                    >
                       <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{page.icon}</i>{page.label}
                     </a>
                   )

@@ -45,7 +45,7 @@ class AppNavigation extends Component {
   };
 
   render() {
-    const { name, pages, children, screenType, handlePageClick } = this.props;
+    const { name, pages, children, screenType, handlePageClick, currentPage, currentSubject } = this.props;
     const applicationPages = [];
     /*pages.filter(page => page.type === 'main').map(page =>
       applicationPages.push(<AppBarButton key={page.id} label={page.label} path={page.path} code={page.code}/>));*/
@@ -63,7 +63,14 @@ class AppNavigation extends Component {
           actionItems={applicationPages}
         />
         <div className="content-wrapper">
-          <NavigationDrawer pages={pages} screenType={screenType} handlePageClick={handlePageClick} setRef={this.setDrawerRef} />
+          <NavigationDrawer
+            currentPage={currentPage}
+            currentSubject={currentSubject}
+            pages={pages}
+            screenType={screenType}
+            handlePageClick={handlePageClick}
+            setRef={this.setDrawerRef}
+          />
           {children}
         </div>
       </div>

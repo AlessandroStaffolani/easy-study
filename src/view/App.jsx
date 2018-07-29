@@ -3,7 +3,6 @@ import '../css/App.css';
 import AppNavigation from './AppNavigation';
 import Default from './Content';
 import Subject from './pages/subject/Index';
-import Question from './pages/question/Index';
 import Booklet from './pages/booklet/Index';
 import Profile from './pages/profile/Index';
 
@@ -18,8 +17,8 @@ export default class App extends Component {
     this.state = {
       name: 'Easy Study',
       screenType: 'desktop',
-      currentPage: 'home',
-      currentSubject: '',
+      currentPage: 'subjects',
+      currentSubject: 'cloud',
       pages: {
         home: {
           id: 0,
@@ -27,8 +26,6 @@ export default class App extends Component {
           path: '/',
           type: 'home',
           icon: 'home',
-          active: true,
-          content: <Default />,
         },
         subjects: {
           id: 0,
@@ -36,26 +33,13 @@ export default class App extends Component {
           path: '/subjects',
           type: 'main',
           icon: 'collections_bookmark',
-          active: false,
-          content: <Subject />,
         },
-        /*questions: {
-          id: 1,
-          label: 'Domande',
-          path: '/questions',
-          type: 'main',
-          icon: 'bookmark',
-          active: false,
-          content: <Question />,
-        },*/
         booklet: {
           id: 2,
           label: 'Libretto',
           path: '/booklet',
           type: 'main',
           icon: 'library_books',
-          active: false,
-          content: <Booklet />,
         },
         profile: {
           id: 3,
@@ -63,8 +47,6 @@ export default class App extends Component {
           path: '/profile',
           type: 'account',
           icon: 'account_circle',
-          active: false,
-          content: <Profile />,
         },
         logout: {
           id: 4,
@@ -72,8 +54,6 @@ export default class App extends Component {
           path: '/logout',
           type: 'account',
           icon: 'exit_to_app',
-          active: false,
-          content: <Default />,
         }
       },
     };
@@ -110,26 +90,30 @@ export default class App extends Component {
 
   handlePageClick = (event, pageKey, subjectName = undefined) => {
     event.preventDefault();
-    const pages = this.getDisactivedPages();
-    pages[pageKey].active = true;
     this.setState({
-      pages,
       currentPage: pageKey,
       currentSubject: subjectName
     });
   };
 
-  getDisactivedPages = () => {
-    const { pages } = this.state;
-    Object.keys(pages).map(key => {
-      pages[key].active = false;
-    });
-    return pages;
-  };
+  setAppContent = () => {
+    switch (this.state.currentPage) {
+      case 'home':
+        return <Default { ...this.state }/>;
+      case 'subjects':
+        return <Subject { ...this.state }/>;
+      case 'booklet':
+        return <Booklet { ...this.state }/>;
+      case 'profile':
+        return <Profile { ...this.state }/>;
+      case 'logout':
+        return <Default { ...this.state }/>;
+    }
+  }
 
   render() {
     const { currentPage, name, screenType } = this.state;
-    const content = this.state.pages[currentPage].content;
+    const content = this.setAppContent();
     return (
       <div className="App">
         <AppNavigation {...this.state} handlePageClick={this.handlePageClick}>

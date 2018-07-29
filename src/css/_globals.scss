@@ -20,7 +20,21 @@ body {
     max-width: 1024px;
     margin: 0 auto;
     padding: 40px 16px 100px;
+
+    .page-heading {
+      text-transform: capitalize;
+    }
   }
+}
+
+.add-subject-button {
+  position: fixed;
+  z-index: 10;
+  @include mdc-states(on-secondary);
+}
+
+.subject-form-item {
+  width: 100%;
 }
 
 @media screen and (min-width: mdc-layout-grid-breakpoint-min(tablet)) {
@@ -28,11 +42,33 @@ body {
   .content-wrapper {
     padding-top: 64px;
   }
+
+  .add-subject-button {
+    top: 36px;
+    right: 36px;
+  }
+}
+
+@media (max-width: 599px) {
+
+  .content-wrapper {
+    padding-top: 56px;
+  }
+
+  .add-subject-button {
+    top: 28px;
+    right: 28px;
+  }
 }
 
 @media screen and (max-width: mdc-layout-grid-breakpoint-min(tablet)) {
 
   .content-wrapper {
     padding-top: 56px;
+  }
+
+  .add-subject-button {
+    top: 28px;
+    right: 28px;
   }
 }
